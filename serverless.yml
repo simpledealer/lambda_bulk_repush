@@ -1,4 +1,4 @@
-service: lambda-resource-credit-apps
+service: lambda-repush_handler
 
 # Use the serverless-webpack plugin to transpile ES6
 plugins:
@@ -21,25 +21,11 @@ custom:
 
 provider:
   name: aws
-  runtime: nodejs12.X
+  runtime: nodejs8.10
   stage: ${opt:stage, 'da'}
   region: us-east-1
   environment: ${self:custom.env}
-  iamRoleStatements:
-    - Effect: 'Allow'
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: 'arn:aws:dynamodb:us-east-1:577195013332:table/${self:custom.stage}_APPS_DATA'
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-      Resource: 'arn:aws:dynamodb:us-east-1:577195013332:table/${self:custom.stage}_APPS_DATA/index/*'
+  # iamRoleStatements:
 
 functions:
   handler:
@@ -47,14 +33,10 @@ functions:
     role: arn:aws:iam::577195013332:role/executing-lambda
     events:
       - http:
-          path: credit_apps
+          path: repush
           method: get
           cors: true
       - http:
-          path: credit_apps
-          method: put
-          cors: true
-      - http:
-          path: credit_apps/{id}/tags
-          method: put
+          path: repush
+          method: post
           cors: true
