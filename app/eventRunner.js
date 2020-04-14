@@ -3,19 +3,14 @@
 import _ from "lodash";
 import { SnsPublisher } from "@simple_merchant/simplemerchant-apps-utils";
 import handleCreateEvent from "./eventHandlers/handleCreateEvent";
-import handleReadEvent from "./eventHandlers/handleReadEvent";
 import handleListEvent from "./eventHandlers/handleListEvent";
-import handleDeleteEvent from "./eventHandlers/handleReadEvent";
-import handleTagUpdateEvent from "./eventHandlers/handleTagUpdateEvent";
 
 const DEFAULT_LAMBDA_STAGE = "development";
 const SERVICE_IDENTIFIER = "SimplemeDealer:DealershipResource";
 
 const LIST_OPERATION = "GET__CREDIT__APPS__ROOT";
-const UPDATE_OPERATION = "PUT__CREDIT__APPS__ROOT";
-const DELETE_OPERATION = "DELETE__DEALERSHIP__APPLICATIONS__ID";
-const READ_OPERATION = "GET__DEALERSHIP__APPLICATIONS__ID";
-const UPDATE_TAGS_OPERATION = "PUT__CREDIT__APPS__ID";
+const CREATE_OPERATION = "POST__CREDIT__APPS__ROOT";
+
 
 export const runWithEvent = async({
     event,
@@ -31,7 +26,7 @@ export const runWithEvent = async({
         });
         let response;
         switch (event.name) {
-            case UPDATE_OPERATION:
+            case CREATE_OPERATION:
                 response = await handleCreateEvent({
                     event,
                     snsPublisher,
@@ -43,16 +38,6 @@ export const runWithEvent = async({
                 break;
             case LIST_OPERATION:
                 response = await handleListEvent({
-                    event,
-                    snsPublisher,
-                    serviceIdentifier: SERVICE_IDENTIFIER,
-                    logger,
-                    eventHandler,
-                    errorHandler
-                });
-                break;
-            case UPDATE_TAGS_OPERATION:
-                response = await handleTagUpdateEvent({
                     event,
                     snsPublisher,
                     serviceIdentifier: SERVICE_IDENTIFIER,
