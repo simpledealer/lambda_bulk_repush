@@ -1,0 +1,43 @@
+{
+  "name": "lambda-resources-dealership-info",
+  "version": "1.0.0",
+  "description": "Lambda service to manage SD Dealerships",
+  "main": "handler.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simplemerchant/lambda-resources-dealership-info.git"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-source-map-support": "^1.0.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "jest": "^22.4.0",
+    "prettier": "1.10.2",
+    "serverless-offline": "^3.25.4",
+    "serverless-pseudo-parameters": "^1.2.0",
+    "serverless-webpack": "^4.2.0",
+    "webpack": "^3.10.0",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "dependencies": {
+    "@simple_merchant/simplemerchant-app-schemas": "^0.0.1",
+    "@simple_merchant/simplemerchant-apps-utils": "^1.4.0",
+    "@simple_merchant/simplemerchant-events-handler": "^0.1.4",
+    "axios": "^0.18.0",
+    "babel-runtime": "^6.26.0",
+    "bluebird": "^3.5.1",
+    "dynogels": "^9.0.0",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.14",
+    "source-map-support": "^0.4.18"
+  }
+}

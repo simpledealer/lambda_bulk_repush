@@ -1,0 +1,60 @@
+service: lambda-resource-credit-apps
+
+# Use the serverless-webpack plugin to transpile ES6
+plugins:
+  - serverless-webpack
+  - serverless-pseudo-parameters
+  - serverless-offline
+
+# Enable auto-packing of external modules
+custom:
+  webpackIncludeModules: true
+  stage: ${opt:stage, self:provider.stage}
+  region: ${opt:region, self:provider.region}
+  env:
+    LAMBDA_STAGE: ${self:provider.stage}
+    SM_AWS_ACCOUNT: ${ssm:/simple-dealer/${self:provider.stage}/aws_account_id}
+    SM_AWS_REGION: ${ssm:/simple-dealer/${self:provider.stage}/aws_account_region}
+  serverless-offline:
+    babelOptions:
+      presets: ['env']
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: ${opt:stage, 'de'}
+  region: us-east-1
+  environment: ${self:custom.env}
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: 'arn:aws:dynamodb:us-east-1:577195013332:table/${self:custom.stage}_APPS_DATA'
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+      Resource: 'arn:aws:dynamodb:us-east-1:577195013332:table/${self:custom.stage}_APPS_DATA/index/*'
+
+functions:
+  handler:
+    handler: handler.init
+    role: arn:aws:iam::577195013332:role/executing-lambda
+    events:
+      - http:
+          path: credit_apps
+          method: get
+          cors: true
+      - http:
+          path: credit_apps
+          method: put
+          cors: true
+      - http:
+          path: credit_apps/{id}/tags
+          method: put
+          cors: true
