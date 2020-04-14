@@ -33,10 +33,10 @@ functions:
     role: arn:aws:iam::577195013332:role/executing-lambda
     events:
       - http:
-          path: repush
+          path: bulk_repush
           method: get
           cors: true
       - http:
-          path: repush
+          path: bulk_repush
           method: post
           cors: true
