@@ -1,7 +1,7 @@
 "use strict";
 
-import { handlePost } from "./app/handlePost";
-import { handleGet } from "./app/handleGet";
+import { handleRepush } from "./app/handleRepush";
+import { listExecutions } from "./app/listExecutions";
 
 const SUCCESS_STATUS_CODE = 200;
 const FAILURE_STATUS_CODE = 500;
@@ -11,9 +11,9 @@ export const init = async (event, context, callback) => {
   let response;
   try {
     if (event.httpMethod === 'GET') {
-      response = await handleGet(event);
+      response = await listExecutions();
     } else {
-      response = await handlePost(event);
+      response = await handleRepush();
     }
     const successResponse = {
       statusCode: SUCCESS_STATUS_CODE,

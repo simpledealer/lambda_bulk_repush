@@ -6,16 +6,11 @@ import { constructDbTableName } from "@simple_merchant/simplemerchant-apps-utils
 const TABLE_NAME = "APP_CREDENTIALS";
 const LAMBDA_STAGE = process.env.stage || "development";
 
-export async function handlePost(_events) {
-  console.log('inside Post handler');
-  let res = await findApps('trello', 'de');
-  console.log(res);
-  return;
-}
+export async function findApps(query) {
+  console.log('querying Database');
 
-async function findApps(query, stage) {
   let params = {
-    TableName: constructDbTableName(stage, TABLE_NAME),
+    TableName: constructDbTableName(LAMBDA_STAGE, TABLE_NAME),
     ExpressionAttributeNames: {
       "#filter": "cms",
     },

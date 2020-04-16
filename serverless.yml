@@ -25,16 +25,14 @@ provider:
   stage: ${opt:stage, 'da'}
   region: us-east-1
   environment: ${self:custom.env}
-  # iamRoleStatements:
-  #   - Effect: 'Allow'
-  #     Action:
-  #       - dynamodb:Query
-  #       - dynamodb:Scan
-  #       - dynamodb:GetItem
-  #       - dynamodb:PutItem
-  #       - dynamodb:UpdateItem
-  #       - dynamodb:DeleteItem
-  #     Resource: 'arn:aws:dynamodb:us-east-1:577195013332:table/${self:custom.stage}_DEALERSHIPS'
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+      Resource: 'arn:aws:dynamodb:us-east-1:577195013332:table/${self:custom.stage}_APP_CREDENTIALS'
 
 functions:
   handler:

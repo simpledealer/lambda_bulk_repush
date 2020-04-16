@@ -1,9 +1,9 @@
 const AWS = require('aws-sdk')
 const stepfunctions = new AWS.StepFunctions({ apiVersion: '2016-11-23' });
 
-export async function handleGet(_events) {
+export async function listExecutions() {
   let res;
-  console.log('inside get handler');
+  console.log('inside listExecutions handler');
 
   try {
     let params = {
