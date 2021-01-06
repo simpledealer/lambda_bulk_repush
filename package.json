@@ -31,7 +31,7 @@
     "@simple_merchant/simplemerchant-app-schemas": "^0.0.1",
     "@simple_merchant/simplemerchant-apps-utils": "^1.4.0",
     "@simple_merchant/simplemerchant-events-handler": "^0.1.4",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-runtime": "^6.26.0",
     "bluebird": "^3.5.1",
     "dynogels": "^9.0.0",
